@@ -1,44 +1,41 @@
 source 'https://rubygems.org'
-ruby "~> 2.5.5"
+ruby '~> 2.5.5'
 
 # core
 
-gem 'rails', '~> 5.2.3'
 gem 'pg'
 gem 'puma'
+gem 'rails', '~> 5.2.3'
+gem 'turbolinks'
 
 # views
 
+gem 'bootstrap'
+gem 'coffee-rails'
+gem 'font-awesome-rails'
+gem 'haml'
 gem 'sass-rails'
 gem 'uglifier'
-gem 'coffee-rails'
-gem 'haml'
-gem 'bootstrap', '4.0.0.alpha6'
-gem 'font-awesome-rails'
 
 # core libs
 
-gem 'jquery-rails'
-gem 'jbuilder'
-gem 'exception_notification'
-#gem 'webpacker'
 gem 'devise'
+gem 'exception_notification'
+gem 'jbuilder'
+gem 'jquery-rails'
+# gem 'webpacker'
 
 # additional libs
 
-gem 'execjs'
-gem 'nokogiri'
 gem 'chartkick'
+gem 'chunky_png', require: false
+gem 'execjs'
 gem 'groupdate', require: 'groupdate'
-gem 'chunky_png', :require => false
+gem 'newrelic_rpm'
+gem 'nokogiri'
 gem 'oily_png'
 gem 'redcarpet'
 
-gem 'turbolinks'
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-tether', '>= 1.3.3'
-end
 
 group :development, :test do
   gem 'pry', require: false
@@ -47,6 +44,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console'
   gem 'listen'
+  gem 'web-console'
 end
