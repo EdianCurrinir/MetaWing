@@ -14,7 +14,7 @@ gem 'bootstrap'
 gem 'coffee-rails'
 gem 'font-awesome-rails'
 gem 'haml'
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'uglifier'
 
 # core libs
@@ -35,7 +35,6 @@ gem 'newrelic_rpm'
 gem 'nokogiri'
 gem 'oily_png'
 gem 'redcarpet'
-
 
 group :development, :test do
   gem 'pry', require: false
