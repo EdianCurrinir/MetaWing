@@ -25,14 +25,13 @@
     /= render '/layouts/top_navigation'
     = render '/layouts/navbar'
     .container-fluid
-      .row
-        = render '/layouts/side_navigation'
-        %main.col-lg-10.offset-lg-2.pt-3
-          - if show_filter?(params[:controller], params[:action])
-            = render '/shared/filter_configurator'
-          = yield(:export_button)
-          = render '/layouts/flash'
-          %h1= yield(:title).presence || t('.title')
-          = yield
+      /= render '/layouts/sidebar'
+      %main
+        - if show_filter?(params[:controller], params[:action])
+          = render '/shared/filter_configurator'
+        = yield(:export_button)
+        = render '/layouts/flash'
+        %h1= yield(:title).presence || t('.title')
+        = yield
     - if Rails.env.production?
       = render '/layouts/analytics'

@@ -10,6 +10,9 @@ en:
       listfortress: "List Fortress"
       news: "Changelog"
       about: "About"
+      upgrades: "Upgrades"
+      pilots: "Pilots"
+      lists: "Lists"
     top_navigation:
       title: 'MetaWing 2.0'
       browser: 'Data Browser'

@@ -4,7 +4,19 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <%= link_with_filter_to root_path, class: 'nav-link' do t('.browser') end %>
+        <%= link_with_filter_to pilots_path, class: 'nav-link' do t('.pilots') end %>
+      </li>
+
+      <li class="nav-item active">
+        <%= link_with_filter_to ships_path, class: 'nav-link' do t('.ships') end %>
+      </li>
+
+      <li class="nav-item active">
+        <%= link_with_filter_to upgrades_path, class: 'nav-link' do t('.upgrades') end %>
+      </li>
+
+      <li class="nav-item active">
+        <%= link_with_filter_to ship_combos_path, class: 'nav-link' do t('.lists') end %>
       </li>
 
       <li class="nav-item active">
