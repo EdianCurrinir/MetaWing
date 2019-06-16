@@ -3,8 +3,13 @@ en:
     application:
       title: 'MetaWing 2.0'
       description: 'Meta analysis for the X-Wing List Fortress'
-      author: 'Matt Whited'
+      author: 'Alex Raubach and Matt Whited'
       currently_importing: 'Currently Importing...'
+    navbar:
+      browser: 'Data Browser'
+      listfortress: "List Fortress"
+      news: "Changelog"
+      about: "About"
     top_navigation:
       title: 'MetaWing 2.0'
       browser: 'Data Browser'
