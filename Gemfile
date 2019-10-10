@@ -10,7 +10,7 @@ gem 'turbolinks'
 
 # views
 
-gem 'bootstrap'
+gem 'bootstrap', '4.0.0.alpha6'
 gem 'coffee-rails'
 gem 'font-awesome-rails'
 gem 'haml'
@@ -26,6 +26,10 @@ gem 'jquery-rails'
 # gem 'webpacker'
 
 # additional libs
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.3.3'
+end
 
 gem 'chartkick'
 gem 'chunky_png', require: false
