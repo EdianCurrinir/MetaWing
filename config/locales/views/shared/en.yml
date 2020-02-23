@@ -14,6 +14,9 @@ en:
         upsilon_nerf: 'Upsilon Points Nerf'
         wave_3: '(Wave 3)'
         wave_4: '(Wave 4)'
+        wave_5: '(Wave 5)'
+        jan_20_points_update: '1/20 Points Update'
+        wave_6: 'Wave 6'
         today: 'Today'
       multipliers:
         large_tournament_multiplier:
