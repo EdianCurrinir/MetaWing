@@ -9,7 +9,7 @@ have.
 The application is written in Ruby on Rails and uses PostgreSQL as its database.
 
 Preferably, use something like RVM to handle your Rubies and Gemsets. Then checkout
-the repository (including the submodule), make sure you're using Ruby 2.4 and have
+the repository (including the submodule), make sure you're using Ruby 2.5.7 and have
 Postgres installed, and...
 
 ```bash
