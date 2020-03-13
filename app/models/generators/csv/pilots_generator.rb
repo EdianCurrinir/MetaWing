@@ -16,6 +16,7 @@ module Generators
               context.t('pilots.csv.tournaments_count'),
               context.t('pilots.csv.average_percentile'),
               context.t('pilots.csv.weight'),
+              context.t('pilots.csv.faction')
             ]
             pilots.each_with_index do |pilot, index|
               if ids.empty? || ids.map(&:to_i).include?(pilot.id)
@@ -29,12 +30,12 @@ module Generators
                   pilot.tournaments,
                   (pilot.average_percentile * 10000).to_i / 100.0,
                   pilot.weight,
+                  pilot.faction
                 ]
               end
             end
           end
         end
-
       end
     end
   end
