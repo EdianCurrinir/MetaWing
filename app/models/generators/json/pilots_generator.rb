@@ -31,6 +31,7 @@ module Generators
             tournaments_count:  pilot.tournaments,
             average_percentile: (pilot.average_percentile * 10000).to_i / 100.0,
             weight:             pilot.weight,
+            faction:            pilot.faction
           }
         end
 
