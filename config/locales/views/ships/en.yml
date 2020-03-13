@@ -39,3 +39,4 @@ en:
       average_percentile: 'avg Percentile'
       win_loss_ratio: 'Win/Loss Ratio'
       weight: 'Weighted Score'
+      faction: 'Faction'

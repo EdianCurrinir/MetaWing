@@ -16,6 +16,7 @@ module Generators
               context.t('ships.csv.tournaments_count'),
               context.t('ships.csv.average_percentile'),
               context.t('ships.csv.weight'),
+              context.t('ships.csv.faction'),
             ]
             ships.each_with_index do |ship, index|
               if ids.empty? || ids.map(&:to_i).include?(ship.id)
@@ -28,6 +29,7 @@ module Generators
                   ship.tournaments,
                   (ship.average_percentile * 10000).to_i / 100.0,
                   ship.weight,
+                  ship.faction_name
                 ]
               end
             end

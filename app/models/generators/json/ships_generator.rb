@@ -15,12 +15,12 @@ module Generators
 
         def generate_ship(context, ship, ship_pilots, position)
           {
-            position:           position,
-            id:                 ship.id,
-            xws:                ship.xws,
-            name:               ship.name,
-            link:               context.ship_url(ship.id, format: :json),
-            pilots:             ship_pilots[ship.id].map do |pilot|
+            position:            position,
+            id:                  ship.id,
+            xws:                 ship.xws,
+            name:                ship.name,
+            link:                context.ship_url(ship.id, format: :json),
+            pilots:              ship_pilots[ship.id].map do |pilot|
               {
                 id:    pilot.id,
                 name:  pilot.name,
@@ -28,10 +28,11 @@ module Generators
                 image: context.pilot_image_url(pilot.id, format: :png),
               }
             end,
-            squadron_count:     ship.squadrons,
-            tournaments_count:  ship.tournaments,
-            average_percentile: (ship.average_percentile * 10000).to_i / 100.0,
-            weight:             ship.weight,
+            squadron_count:      ship.squadrons,
+            tournaments_count:   ship.tournaments,
+            average_percentile: (ship.average_percentile * 10_000).to_i / 100.0,
+            weight:              ship.weight,
+            faction:             ship.faction_name
           }
         end
 
