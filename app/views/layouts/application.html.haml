@@ -18,6 +18,8 @@
     %meta{:content => "MetaWing", :name => "apple-mobile-web-app-title"}/
     %meta{:content => "MetaWing", :name => "application-name"}/
     %meta{:content => "#71b5ff", :name => "theme-color"}/
+    = javascript_include_tag 'application'
+    -# javascript_include_tag '//www.google.com/jsapi', 'chartkick'
     = yield :elm
 
   %body
@@ -36,8 +38,6 @@
           %h1= yield(:title).presence || t('.title')
           = yield
 
-    = javascript_include_tag '//www.google.com/jsapi', 'chartkick', 'application'
-    = javascript_include_tag 'application'
     = yield :javascript
     - if Rails.env.production?
       = render '/layouts/analytics'
