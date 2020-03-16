@@ -42,6 +42,7 @@ end
 
 # use new relic for monitoring
 gem 'newrelic_rpm'
+gem 'scout_apm'
 
 group :development, :test do
   gem 'pry', require: false
