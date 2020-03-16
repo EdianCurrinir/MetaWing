@@ -40,6 +40,9 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
 end
 
+# use new relic for monitoring
+gem 'newrelic_rpm'
+
 group :development, :test do
   gem 'pry', require: false
   gem 'rspec-rails'
