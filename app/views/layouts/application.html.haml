@@ -23,7 +23,7 @@
     = yield :elm
 
   %body
-    - if KeyValueStoreRecord.get('syncing')
+    -# if KeyValueStoreRecord.get('syncing')
       .stamp
         = t('.currently_importing').html_safe
     = render '/layouts/top_navigation'
