@@ -1,6 +1,5 @@
 module Rankers
   class CounterComboRanker
-
     attr_reader :counter_combos
 
     def initialize(ranking_configuration, ship_combo_id)
@@ -14,7 +13,7 @@ module Rankers
         inner join tournaments
           on tournaments.id = squadrons.tournament_id
       SQL
-      counter_combo_query = ShipCombo.where(id: ship_combo_id).joins(joins)
+      counter_combo_query = ShipCombo.where(id: ship_combo_id).joins(joins).includes(:ships)
       counter_combo_query = counter_combo_query.where('tournaments.date >= ? and tournaments.date <= ?', start_date, end_date)
       if tournament_type.present?
         counter_combo_query = counter_combo_query.where('tournaments.tournament_type_id = ?', tournament_type)
@@ -41,7 +40,7 @@ module Rankers
       @counter_combos.reject! { |counter|
         # counter[:win_loss_ratio] >= 0.6 ||
         counter[:ship_combo].id == ship_combo_id.to_i ||
-        counter[:ship_combo].ships.count <= 0 ||
+        counter[:ship_combo].ships.size <= 0 ||
         counter[:games_against] <= 1
       }
       @counter_combos.sort_by! { |counter| [counter[:win_loss_ratio], -counter[:games_against]] }
@@ -70,6 +69,5 @@ module Rankers
       }
       ShipCombo.fetch_query(counter_combo_query.joins(won_games_join).group('games.winning_combo_id'), attributes)
     end
-
   end
 end
