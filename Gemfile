@@ -40,8 +40,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
 end
 
-# use new relic for monitoring
-gem 'newrelic_rpm'
+# use scout for monitoring
 gem 'scout_apm'
 
 group :development, :test do
