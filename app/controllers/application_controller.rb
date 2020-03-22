@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
-
   protect_from_forgery with: :exception
 
-  # before_action :check_maintenance_mode
+  before_action :check_maintenance_mode
 
   def ranking_configuration
     {
@@ -40,9 +39,8 @@ class ApplicationController < ActionController::Base
   private
 
   def check_maintenance_mode
-    if KeyValueStoreRecord.get('maintenance')
-      redirect_to maintenance_mode_path
-    end
+    # if KeyValueStoreRecord.get('maintenance')
+    #   redirect_to maintenance_mode_path
+    # end
   end
-
 end
