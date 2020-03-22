@@ -32,11 +32,6 @@ module FontHelper
     end
   end
 
-  def ship_id_icon(ship_id)
-    ship = Ship.find_by(id:ship_id)
-    ship_icon(ship.xws)
-  end
-
   def upgrade_type_icon(upgrade_type)
     case upgrade_type
     when 'Talent'
