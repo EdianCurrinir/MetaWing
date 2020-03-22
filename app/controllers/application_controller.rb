@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :check_maintenance_mode
+  # before_action :check_maintenance_mode
 
   def ranking_configuration
     {
