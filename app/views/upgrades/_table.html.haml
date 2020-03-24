@@ -16,7 +16,7 @@
         %strong= "#{index + 1}."
       %td.image-hover-cell.upgrade
         .image-with-hover
-          = image_tag upgrade_image_path(upgrade_id: upgrade.id, format: :png)
+          = image_tag upgrade.image_path unless upgrade.image_path.blank?
       %td
         = link_with_filter_to upgrade_path(upgrade.id) do
           = upgrade.name

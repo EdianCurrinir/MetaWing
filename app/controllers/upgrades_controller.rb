@@ -1,8 +1,6 @@
 class UpgradesController < ApplicationController
-
   def index
     @view = Rankers::UpgradesRanker.new(ranking_configuration)
-    p @view
     respond_to do |format|
       format.html do
         # standard render pipeline
@@ -54,5 +52,4 @@ class UpgradesController < ApplicationController
   def upgrade_attributes
     params.require(:upgrade).permit(upgrade_type_attributes: [:id, :font_icon_class])
   end
-
 end
