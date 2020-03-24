@@ -30,6 +30,7 @@ module Rankers
         ship_name:            'ships.name',
         ship_font_icon_class: 'ships.icon',
         ship_xws:             'ships.xws',
+        image_path:           'pilots.image',
         weight:               weight_query_builder.build_weight_query,
         squadrons:            'count(distinct squadrons.id)',
         tournaments:          'count(distinct tournaments.id)',

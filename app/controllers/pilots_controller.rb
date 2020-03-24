@@ -53,5 +53,4 @@ class PilotsController < ApplicationController
   def pilot_attributes
     params.require(:pilot).permit([])
   end
-
 end
