@@ -31,7 +31,7 @@ module Rankers
         name:                         'upgrades.name',
         upgrade_type:                 'upgrade_sides.upgrade_type',
         #upgrade_type_font_icon_class: nil,
-        image_path:                   'upgrade_sides.image',
+        image_path:                   "max(upgrade_sides.image)",
         weight:                       weight_query_builder.build_weight_query,
         squadrons:                    'count(distinct squadrons.id)',
         tournaments:                  'count(distinct tournaments.id)',
@@ -40,7 +40,7 @@ module Rankers
       }
       upgrade_relation     = Upgrade
                                .joins(joins)
-                               .group('upgrades.id, upgrades.name, upgrade_sides.upgrade_type', 'upgrade_sides.image') #, upgrade_types.font_icon_class
+                               .group('upgrades.id, upgrades.name, upgrade_sides.upgrade_type') #, upgrade_types.font_icon_class
                                .order('weight desc')
                                .where('tournaments.date >= ? and tournaments.date <= ?', start_date, end_date)
       if ship_id.present?
