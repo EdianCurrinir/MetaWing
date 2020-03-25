@@ -28,7 +28,7 @@
           - if !(defined?(show_faction) && show_faction) || (pilot.faction.name == ship.faction_name)
             %span.text-nowrap
               %small
-                %i.xwing-miniatures-font{class: "xwing-miniatures-font-#{faction_icon(pilot.faction.name)}"}
+                %i.xwing-miniatures-font{class: "xwing-miniatures-font-#{faction_icon(ship.faction_name)}"}
               = link_with_filter_to pilot_path(pilot.id), class: 'link-with-hover-image' do
                 = image_tag pilot_image_path(pilot, format: :png)
                 = pilot.name

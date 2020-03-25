@@ -31,6 +31,8 @@
           - if ship_configuration.pilot.present?
             %strong
               = link_with_filter_to pilot_path(ship_configuration.pilot.id), class: 'link-with-hover-image' do
+                -# I tried to convert this image tag to a direct link but couldn't get it to work
+                -# It's only 4 images per page so I just left it in.
                 = image_tag pilot_image_path(ship_configuration.pilot, format: :png)
                 = ship_configuration.pilot.name
             %small
@@ -39,7 +41,7 @@
               - ship_configuration.upgrades.each do |upgrade|
                 %i.xwing-miniatures-font{class: "xwing-miniatures-font-#{upgrade_type_icon(upgrade.upgrade_sides[0].upgrade_type)}"}
                 = link_with_filter_to upgrade_path(upgrade.id), class: 'link-with-hover-image' do
-                  = image_tag upgrade_image_path(upgrade, format: :png)
+                  = image_tag upgrade.upgrade_sides[0].image unless upgrade.upgrade_sides[0].image.blank?
                   = upgrade.name
           - else
             = t('.missing_pilot')
@@ -47,7 +49,7 @@
               - ship_configuration.upgrades.each do |upgrade|
                 %i.xwing-miniatures-font{class: "xwing-miniatures-font-#{upgrade_type_icon(upgrade.upgrade_sides[0].upgrade_type)}"}
                 = link_with_filter_to upgrade_path(upgrade.id), class: 'link-with-hover-image' do
-                  = image_tag upgrade_image_path(upgrade, format: :png)
+                  = image_tag upgrade.upgrade_sides[0].image unless upgrade.upgrade_sides[0].image.blank?
                   = upgrade.name
           %br
         %small
