@@ -6,6 +6,10 @@ module Importers
         squadron_xws = JSON.parse(squadron_xws) if squadron_xws.is_a?(String)
         faction_xws  = squadron_xws.try(:[], 'faction')
         faction      = Faction.find_by(xws: faction_xws)
+        if faction.nil?
+          puts 'The following XWS lacks a proper faction'
+          puts squadron_xws
+        end
         squadron     = Squadron.new({
                                       xws:        squadron_xws,
                                       name:       squadron_xws.try(:[], 'name'),
