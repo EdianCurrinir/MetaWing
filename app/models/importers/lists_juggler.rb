@@ -79,7 +79,7 @@ module Importers
         end
       rescue => e
         puts "ERROR " + e.message
-        #puts e.backtrace
+        puts e.backtrace
       end
       tournament
     end
