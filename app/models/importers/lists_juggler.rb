@@ -127,21 +127,33 @@ module Importers
         round_data['matches'].each do |game_data|
           if game_data['result'] == 'win'
             if game_data['player1_points'].to_i > game_data['player2_points'].to_i
-              Game.create({
-                            tournament:       tournament,
-                            winning_squadron: squadron_container[game_data['player1_id']],
-                            losing_squadron:  squadron_container[game_data['player2_id']],
-                            round_number:     round_number,
-                            round_type:       round_type,
-                          })
-            elsif game_data['player2_points'].to_i > game_data['player1_points'].to_i
-              Game.create({
-                            tournament:       tournament,
-                            winning_squadron: squadron_container[game_data['player2_id']],
-                            losing_squadron:  squadron_container[game_data['player1_id']],
-                            round_number:     round_number,
-                            round_type:       round_type,
-                          })
+              if squadron_container[game_data['player1_id']].present? && squadron_container[game_data['player2_id']].present?
+                begin
+                  Game.create!({
+                    tournament:       tournament,
+                    winning_squadron: squadron_container[game_data['player1_id']],
+                    losing_squadron:  squadron_container[game_data['player2_id']],
+                    round_number:     round_number,
+                    round_type:       round_type,
+                  })
+                rescue => e
+                  puts "Game Error: " + e.message
+                end
+              elsif game_data['player2_points'].to_i > game_data['player1_points'].to_i
+                if squadron_container[game_data['player1_id']].present? && squadron_container[game_data['player2_id']].present?
+                  begin
+                    Game.create!({
+                      tournament:       tournament,
+                      winning_squadron: squadron_container[game_data['player2_id']],
+                      losing_squadron:  squadron_container[game_data['player1_id']],
+                      round_number:     round_number,
+                      round_type:       round_type,
+                    })
+                  rescue => e
+                    puts "Game Error: " + e.message
+                  end
+                end
+              end
             end
           end
         end

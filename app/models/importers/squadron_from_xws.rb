@@ -97,7 +97,8 @@ module Importers
           'tiesilencer'       => 'tievnsilencer',
           'scavengedyt1300lightfreighter' => 'scavengedyt1300',
           'upsilonclasscommandshuttle' => 'upsilonclassshuttle',
-          'oddballarc170' => 'oddball-arc170starfighter'
+          'oddballarc170' => 'oddball-arc170starfighter',
+          'Holo' => "holo"
         }.each do |original, substitute|
           key = key.gsub(original, substitute)
         end
