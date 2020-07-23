@@ -15,9 +15,9 @@
     %tr.row-for-search{data: {ship_id: ship.id}}
       %td
         %strong= "#{index + 1}."
-      - if defined?(show_faction) && show_faction
+      - if defined?(show_faction) && show_faction && ship&.faction_name
         %td.text-nowrap
-          -#%i.xwing-miniatures-font{class: "xwing-miniatures-font-#{faction_icon(ship.faction_name)}"}
+          %i.xwing-miniatures-font{class: "xwing-miniatures-font-#{faction_icon(ship.faction_name)}"}
       %td.text-nowrap
         %i.xwing-miniatures-ship{class: "xwing-miniatures-ship-#{ship_icon(ship.xws)}"}
         = link_with_filter_to ship_path(ship.id) do
@@ -25,15 +25,14 @@
       %td.pilots-cell
         - pilots = ship_pilots[ship.id]
         - pilots.each.with_index do |pilot, index|
-          - if !(defined?(show_faction) && show_faction) || (pilot.faction.name)
-            %span.text-nowrap
-              %small
-                %i.xwing-miniatures-font{class: "xwing-miniatures-font-#{faction_icon(pilot.faction.name)}"}
-              = link_with_filter_to pilot_path(pilot.id), class: 'link-with-hover-image' do
-                = image_tag pilot_image_path(pilot, format: :png)
-                = pilot.name
-              - if index < pilots.count - 1
-                = ' - '
+          %span.text-nowrap
+            %small
+              %i.xwing-miniatures-font{class: "xwing-miniatures-font-#{faction_icon(pilot.faction.name)}"}
+            = link_with_filter_to pilot_path(pilot.id), class: 'link-with-hover-image' do
+              = image_tag pilot_image_path(pilot, format: :png)
+              = pilot.name
+            - if index < pilots.count - 1
+              = ' - '
       %td
         = ship.squadrons
         %br

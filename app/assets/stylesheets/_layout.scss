@@ -6,9 +6,9 @@
 .alert { margin: 10px 0 10px 0; }
 
 .alert-alert {
-  @extend .alert-danger;
+  @extend .alert-danger !optional;
 }
 
 .alert-notice {
-  @extend .alert-success;
+  @extend .alert-success !optional;
 }
