@@ -248,7 +248,7 @@ DEPENDENCIES
   pg
   pry
   puma
-  rails (~> 5.2.4)
+  rails (~> 5.2.3)
   rails-assets-tether (>= 1.3.3)!
   redcarpet
   rspec-rails
@@ -260,7 +260,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 2.5.7p206
+   ruby 2.7.1p83
 
 BUNDLED WITH
    2.1.4

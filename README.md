@@ -9,7 +9,7 @@ have.
 The application is written in Ruby on Rails and uses PostgreSQL as its database.
 
 Preferably, use something like Rbenv to handle your Rubies and Gemsets. Then checkout
-the repository (including the submodule), make sure you're using Ruby 2.5.7 and have
+the repository (including the submodule), make sure you're using [the Ruby version found here](.ruby-version) and have
 Postgres installed, and...
 
 ```bash
@@ -20,6 +20,7 @@ rake db:create db:migrate db:seed
 
 ...and done. If you're developing on Windows, 
 install the Linux for Windows subsystem and use that to install and manage dependancies. 
+
 I have a [guide I wrote for ListFortress](https://github.com/AlexRaubach/ListFortress/blob/master/Setup.md) about setting up and developing on WSL that covers everything you need to get started. 
 
 Importing all the data (takes a while):

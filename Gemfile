@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
-ruby "~> 2.5.7"
+ruby "~> 2.7.1"
 
 # core
 
-gem 'rails', '~> 5.2.4'
+gem 'rails', '~> 5.2.3'
 gem 'pg'
 gem 'puma'
 
