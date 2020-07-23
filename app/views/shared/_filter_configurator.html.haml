@@ -1,13 +1,17 @@
-#filter-accordion.hidden-md-down{role: 'tablist', style: 'margin-bottom: 0.5rem'}
+#filter-accordion.filter-accordion-collapse{role: 'tablist', style: 'margin-bottom: 0.5rem'}
   .card
     #filter-header.card-header{role: 'tab'}
       %h5.mb-0
-        .float-sm-right
+        %button.filter-toggler.hidden-md-up.collapsed{'data-target' => '#filter-content', 'data-toggle' => 'collapse', :type => 'button'}
+          = fa_icon 'filter'
+          = t('.filter')
+        #filter-title.float-left.hidden-md-down
+          = fa_icon 'filter'
+          = t('.filter')
+        .float-right
           = link_to request.env['PATH_INFO'], class: 'btn btn-primary btn-sm' do
             = t('.reset_filter')
-        = fa_icon 'filter'
-        = t('.filter')
-    #filter-content.collapse.show{role: 'tabpanel'}
+    #filter-content.collapse.dont-collapse-sm{role: 'tabpanel'}
       = form_tag '', method: :patch, id: 'filter-form' do
         .card-block.row{style: 'padding: 0.5rem'}
           .col-sm-2
