@@ -41,7 +41,7 @@ source 'https://rails-assets.org' do
 end
 
 # use scout for monitoring
-gem 'scout_apm'
+# gem 'scout_apm'
 
 group :development, :test do
   gem 'pry', require: false

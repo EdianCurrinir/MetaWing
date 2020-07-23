@@ -2,7 +2,6 @@ class ImagesController < ApplicationController
   # This whole controller is depreciated and shouldn't be used.
   # Just render your image directly.
   def show
-    ScoutApm::Transaction.ignore!
     if params[:pilot_id].present?
       deliver_image(Pilot.find(params[:pilot_id]))
       return
