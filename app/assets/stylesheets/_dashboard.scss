@@ -68,3 +68,22 @@ h1 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
+
+.card-header .filter-toggler:after {
+  font-family: 'FontAwesome';
+  font-weight:900;
+  content: '\f107';
+  padding-left: 4px;
+}
+
+.card-header .filter-toggler.collapsed:after {
+  content: "\f106";
+}
+
+@media (min-width: 768px) {
+  .collapse.dont-collapse-sm {
+    display: block;
+    height: auto !important;
+    visibility: visible;
+  }
+}
