@@ -1,3 +1,6 @@
+require 'fileutils'
+require 'git'
+
 module Importers
   class XwingData2
     
@@ -13,7 +16,26 @@ module Importers
     end
 
     def sync_all
+      latest_update = KeyValueStoreRecord.get('xwing_data2_version')
       @dataroot = Rails.root+'vendor'+'xwing-data2'
+      absPath = @dataroot+'.git'
+      puts absPath
+      if !File.exists?(absPath)
+        if Dir.exists?(@dataroot)
+          puts 'Deleting xwing-data2'
+          FileUtils.remove_dir(@dataroot,force=true)
+        end
+        #if !Dir.exists?(@dataroot)
+         # puts 'Creating directory'
+          #FileUtils.mkdir(@dataroot)
+        #end
+        puts 'Cloning the repository'
+        g = Git.clone('https://github.com/guidokessels/xwing-data2.git', 'xwing-data2', :path => (Rails.root+'vendor'))
+      else
+        puts 'Updating to the latest from the repository'
+        g = Git.open(@dataroot)
+        g.pull
+      end
       @manifest = parse_json('data/' + "manifest.json")
       sync_factions
       sync_pilots
