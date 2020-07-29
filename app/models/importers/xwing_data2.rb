@@ -37,10 +37,16 @@ module Importers
         g.pull
       end
       @manifest = parse_json('data/' + "manifest.json")
-      sync_factions
-      sync_pilots
-      sync_conditions
-      sync_upgrades
+      @versionJson = parse_json('package.json')
+      version = @versionJson['version']
+      if(latest_update.nil? || version == latest_update)
+        puts 'Version numbers are different, update xwing_data2'
+        sync_factions
+        sync_pilots
+        sync_conditions
+        sync_upgrades
+        KeyValueStoreRecord.set!('xwing_data2_version',version)
+      end
     end
 
     def sync_factions
