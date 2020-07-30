@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'git'
+require 'base64'
 
 module Importers
   class XwingData2
@@ -15,32 +16,46 @@ module Importers
       PilotSlot.destroy_all
     end
 
+    def xwing_data2_version
+      response = HTTParty.get('https://api.github.com/repos/guidokessels/xwing-data2/contents/package.json', timeout: 20)
+      if response.present?
+        body = ExecJS.eval(response.body)
+        if body.present?
+          content = Base64.decode64(body['content'])
+          if content.present?
+            content = ExecJS.eval(content)
+            if content.present?
+              version = content['version']
+              if version.present?
+                return version
+              end
+            end
+          end
+        end
+      end
+      nil
+    end
+
     def sync_all
       latest_update = KeyValueStoreRecord.get('xwing_data2_version')
-      @dataroot = Rails.root+'vendor'+'xwing-data2'
-      absPath = @dataroot+'.git'
-      puts absPath
-      if !File.exists?(absPath)
-        if Dir.exists?(@dataroot)
-          puts 'Deleting xwing-data2'
-          FileUtils.remove_dir(@dataroot,force=true)
+      version = xwing_data2_version
+      if(version.nil? || latest_update.nil? || version!=latest_update)
+        @dataroot = Rails.root+'vendor'+'xwing-data2'
+        absPath = @dataroot+'.git'
+        puts absPath
+        if !File.exists?(absPath)
+          if Dir.exists?(@dataroot)
+            puts 'Deleting xwing-data2'
+            FileUtils.remove_dir(@dataroot,force=true)
+          end
+          puts 'Cloning the repository'
+          g = Git.clone('https://github.com/guidokessels/xwing-data2.git', 'xwing-data2', :path => (Rails.root+'vendor'))
+        else
+          puts 'Updating to the latest from the repository'
+          g = Git.open(@dataroot)
+          g.pull
         end
-        #if !Dir.exists?(@dataroot)
-         # puts 'Creating directory'
-          #FileUtils.mkdir(@dataroot)
-        #end
-        puts 'Cloning the repository'
-        g = Git.clone('https://github.com/guidokessels/xwing-data2.git', 'xwing-data2', :path => (Rails.root+'vendor'))
-      else
-        puts 'Updating to the latest from the repository'
-        g = Git.open(@dataroot)
-        g.pull
-      end
-      @manifest = parse_json('data/' + "manifest.json")
-      @versionJson = parse_json('package.json')
-      version = @versionJson['version']
-      if(latest_update.nil? || version == latest_update)
-        puts 'Version numbers are different, update xwing_data2'
+        @manifest = parse_json('data/' + "manifest.json")
         sync_factions
         sync_pilots
         sync_conditions
