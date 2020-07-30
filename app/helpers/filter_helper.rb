@@ -17,6 +17,7 @@ module FilterHelper
       [I18n.t('shared.filter_configurator.dates.wave_5'), Date.new(2019, 9, 13)],
       [I18n.t('shared.filter_configurator.dates.jan_20_points_update'), Date.new(2020, 1, 20)],
       [I18n.t('shared.filter_configurator.dates.wave_6'), Date.new(2020, 1, 31)],
+      [I18n.t('shared.filter_configurator.dates.jul_20_points_update'), Date.new(2020, 7, 28)],
       [I18n.t('shared.filter_configurator.dates.today'), Date.today],
     ]
   end
