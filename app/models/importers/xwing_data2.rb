@@ -55,13 +55,14 @@ module Importers
       return false if github_version == latest_update
 
       update_submodule
+      @manifest = parse_json('data/' + "manifest.json")
 
       sync_factions
       sync_pilots
       sync_conditions
       sync_upgrades
 
-      KeyValueStoreRecord.set!('xwing_data2_version', version)
+      KeyValueStoreRecord.set!('xwing_data2_version', github_version)
     end
 
     def sync_factions
