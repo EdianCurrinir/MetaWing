@@ -7,7 +7,7 @@ namespace :sync do
     Importers::XwingData2.new.reset_pilots
   end
 
-  desc 'xwing-data2'
+  desc 'xwing_data2'
   task xwing_data2: :environment do
     Importers::XwingData2.new.sync_all
   end
