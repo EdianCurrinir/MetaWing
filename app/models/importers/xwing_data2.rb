@@ -31,7 +31,7 @@ module Importers
     end
 
     def update_submodule
-      @dataroot = Rails.root + 'vendor' + 'xwing-data2'
+      @dataroot = Rails.root + 'tmp' + 'xwing-data2'
       abs_path = @dataroot + '.git'
       # puts abs_path
       if !File.exist?(abs_path)
@@ -40,12 +40,12 @@ module Importers
           FileUtils.remove_dir(@dataroot, force = true)
         end
         puts 'Cloning the repository'
-        Git.clone(Importers::XwingData2::XWD2_GIT_URL, 'xwing-data2', path: (Rails.root + 'vendor'))
+        Git.clone(Importers::XwingData2::XWD2_GIT_URL, 'xwing-data2', path: (Rails.root + 'tmp'))
       elsif !File.directory?(abs_path)
         puts 'Deleting xwing-data2 because it is a submodule'
         FileUtils.remove_dir(@dataroot, force = true)
         puts 'Cloning the repository to replace the submodule'
-        Git.clone(Importers::XwingData2::XWD2_GIT_URL, 'xwing-data2', path: (Rails.root + 'vendor'))
+        Git.clone(Importers::XwingData2::XWD2_GIT_URL, 'xwing-data2', path: (Rails.root + 'tmp'))
       else
         puts 'Updating to the latest from the repository'
         g = Git.open(@dataroot)
@@ -60,7 +60,7 @@ module Importers
       return false if github_version == latest_update
 
       update_submodule
-      @manifest = parse_json('data/' + "manifest.json")
+      @manifest = parse_json('data/' + 'manifest.json')
 
       sync_factions
       sync_pilots
@@ -126,9 +126,8 @@ module Importers
       pilot.ship_id = ship.id
       pilot.faction_id = faction_id
       pilot.name = pilot_hash['name']
-      if pilot_hash['caption'].present?
-        pilot.caption = pilot_hash['caption']
-      end
+      pilot.caption = pilot_hash['caption'] if pilot_hash['caption'].present?
+
       pilot.initiative = pilot_hash['initiative']
       pilot.limited = pilot_hash['limited']
       pilot.ability = pilot_hash['ability']
