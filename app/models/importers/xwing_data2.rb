@@ -1,6 +1,11 @@
+require 'fileutils'
+require 'git'
+require 'base64'
+
 module Importers
   class XwingData2
-    
+    XWD2_URL = 'https://api.github.com/repos/guidokessels/xwing-data2/contents/package.json'.freeze
+    XWD2_GIT_URL = 'https://github.com/guidokessels/xwing-data2.git'.freeze
 
     def parse_json(path)
       js_path = @dataroot + path
@@ -12,13 +17,57 @@ module Importers
       PilotSlot.destroy_all
     end
 
+    def xwing_data2_version
+      response = HTTParty.get(Importers::XwingData2::XWD2_URL, timeout: 5)
+
+      return nil unless response.present? && response.parsed_response.dig('content').present?
+
+      decoded_content = Base64.decode64(response.parsed_response.dig('content'))
+
+      return nil unless decoded_content.present?
+
+      parsed_content = JSON.parse(decoded_content)
+      parsed_content&.dig('version')
+    end
+
+    def update_submodule
+      @dataroot = Rails.root + 'tmp' + 'xwing-data2'
+      abs_path = @dataroot + '.git'
+      # puts abs_path
+      if !File.exist?(abs_path)
+        if Dir.exist?(@dataroot)
+          puts 'Deleting xwing-data2'
+          FileUtils.remove_dir(@dataroot, force = true)
+        end
+        puts 'Cloning the repository'
+        Git.clone(Importers::XwingData2::XWD2_GIT_URL, 'xwing-data2', path: (Rails.root + 'tmp'))
+      elsif !File.directory?(abs_path)
+        puts 'Deleting xwing-data2 because it is a submodule'
+        FileUtils.remove_dir(@dataroot, force = true)
+        puts 'Cloning the repository to replace the submodule'
+        Git.clone(Importers::XwingData2::XWD2_GIT_URL, 'xwing-data2', path: (Rails.root + 'tmp'))
+      else
+        puts 'Updating to the latest from the repository'
+        g = Git.open(@dataroot)
+        g.pull
+      end
+    end
+
     def sync_all
-      @dataroot = Rails.root+'vendor'+'xwing-data2'
-      @manifest = parse_json('data/' + "manifest.json")
+      latest_update = KeyValueStoreRecord.get('xwing_data2_version')
+      github_version = xwing_data2_version
+
+      return false if github_version == latest_update
+
+      update_submodule
+      @manifest = parse_json('data/' + 'manifest.json')
+
       sync_factions
       sync_pilots
       sync_conditions
       sync_upgrades
+
+      KeyValueStoreRecord.set!('xwing_data2_version', github_version)
     end
 
     def sync_factions
@@ -63,7 +112,7 @@ module Importers
 
       pilots = ship_hash['pilots']
       faction_id = Faction.find_by(name:ship_hash['faction']).id
-        
+
       pilots.each do |pilot_hash|
         sync_pilot(pilot_hash,ship,faction_id)
       end
@@ -77,9 +126,8 @@ module Importers
       pilot.ship_id = ship.id
       pilot.faction_id = faction_id
       pilot.name = pilot_hash['name']
-      if pilot_hash['caption'].present?
-        pilot.caption = pilot_hash['caption']
-      end
+      pilot.caption = pilot_hash['caption'] if pilot_hash['caption'].present?
+
       pilot.initiative = pilot_hash['initiative']
       pilot.limited = pilot_hash['limited']
       pilot.ability = pilot_hash['ability']
@@ -116,7 +164,7 @@ module Importers
         pilot.force_recovers = pilot_hash['force']['recovers']
         pilot.force_side = pilot_hash['force']['side']
       end
-      
+
       if !pilot.save
         puts pilot.name
         puts pilot.errors.full_messages
@@ -135,33 +183,32 @@ module Importers
       upgrades_hash.each do |upgrade_data|
         upgrade              = Upgrade.find_or_create_by(xws: upgrade_data['xws'])
         upgrade.name         = upgrade_data['name']
-        upgrade.limited      = upgrade_data['limited'] 
+        upgrade.limited      = upgrade_data['limited']
         upgrade_cost = upgrade_data['cost'] #TODO VARIABLE COST
-        if upgrade_cost.present?
-          upgrade.cost = upgrade_cost['value']
-        end
-        upgrade.hyperspace   = upgrade_data['hyperspace']
+
+        upgrade.cost = upgrade_cost['value'] if upgrade_cost.present?
+        upgrade.hyperspace = upgrade_data['hyperspace']
 
         upgrade_sides = upgrade_data['sides']
         upgrade_sides.each do |side|
           sync_upgrade_side_json(upgrade,side)
         end
 
-        #TODO Restrictions
+        # TODO Restrictions
         upgrade.save
       end
     end
 
     def sync_upgrade_side_json(upgrade,side)
-      upgrade_side  = UpgradeSide.find_or_create_by(upgrade_id:upgrade.id,ffg:side['ffg'])
+      upgrade_side = UpgradeSide.find_or_create_by(upgrade_id: upgrade.id, ffg: side['ffg'])
       upgrade_side.title = side['title']
       upgrade_side.upgrade_type = side['type']
       upgrade_side.ability = side['ability']
-      upgrade_side_slots = side['slots']
-      upgrade_side_slots.each do |side_slot|
-        slot = Slot.find_or_create_by(name:side_slot)
-        upgrade_side_slot = UpgradeSideSlot.find_or_create_by(upgrade_side_id:upgrade_side.id,slot_id:slot.id)
-      end
+      # upgrade_side_slots = side['slots']
+      # upgrade_side_slots.each do |side_slot|
+      #   slot = Slot.find_or_create_by(name: side_slot)
+      #   upgrade_side_slot = UpgradeSideSlot.find_or_create_by(upgrade_side_id: upgrade_side.id, slot_id: slot.id)
+      # end
       upgrade_side.image = side['image']
       upgrade_side.artwork = side['artwork']
       upgrade_side_charges = side['charges']
@@ -177,7 +224,7 @@ module Importers
         upgrade_side.attack_maxrange = upgrade_side_attack['maxrange']
         upgrade_side.attack_ordnance = upgrade_side_attack['ordnance']
       end
-      
+
       upgrade_side_device = side['device']
       if upgrade_side_device.present?
         upgrade_side.device_name = upgrade_side_device['name']
@@ -191,15 +238,16 @@ module Importers
         upgrade_side.force_recovers = upgrade_side_force['recovers']
         upgrade_side.force_side = upgrade_side_force['side']
       end
-      
-      upgrade_side_alts = side['alt']
-      if upgrade_side_alts.present?
-        upgrade_side_alts.each do |alt_hash|
-          alt = UpgradeSideAlt.find_or_create_by(upgrade_side_id:upgrade_side.id,image:alt_hash['image'],source:alt_hash['source'])
-        end
-      end
+
+      # upgrade_side_alts = side['alt']
+      # if upgrade_side_alts.present?
+      #   upgrade_side_alts.each do |alt_hash|
+      #     alt = UpgradeSideAlt.find_or_create_by(upgrade_side_id:upgrade_side.id, image: alt_hash['image'], source: alt_hash['source'])
+      #   end
+      # end
       # TODO Grants
       # TODO Actions
+
       upgrade_side.save!
     end
 
@@ -218,6 +266,5 @@ module Importers
         condition.save!
       end
     end
-
   end
 end
