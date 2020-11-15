@@ -1,5 +1,4 @@
 module FilterHelper
-
   def show_filter?(controller, action)
     %w[ships pilots ship_combos upgrades squadrons].include?(controller) && %w[index show].include?(action)
   end
@@ -18,7 +17,9 @@ module FilterHelper
       [I18n.t('shared.filter_configurator.dates.jan_20_points_update'), Date.new(2020, 1, 20)],
       [I18n.t('shared.filter_configurator.dates.wave_6'), Date.new(2020, 1, 31)],
       [I18n.t('shared.filter_configurator.dates.jul_20_points_update'), Date.new(2020, 7, 28)],
-      [I18n.t('shared.filter_configurator.dates.today'), Date.today],
+      [I18n.t('shared.filter_configurator.dates.wave_7'), Date.new(2020, 9, 25)],
+      [I18n.t('shared.filter_configurator.dates.oct_20_nantex_nerf'), Date.new(2020, 10, 30)],
+      [I18n.t('shared.filter_configurator.dates.today'), Date.today]
     ]
   end
 
@@ -26,8 +27,7 @@ module FilterHelper
     [
       [I18n.t('shared.filter_configurator.data_uses.swiss'), 'swiss'],
       [I18n.t('shared.filter_configurator.data_uses.elimination'), 'elimination'],
-      [I18n.t('shared.filter_configurator.data_uses.all'), 'all'],
+      [I18n.t('shared.filter_configurator.data_uses.all'), 'all']
     ]
   end
-
 end

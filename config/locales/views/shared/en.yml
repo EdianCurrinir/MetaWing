@@ -19,6 +19,8 @@ en:
         jan_20_points_update: '1/20 Points Update'
         wave_6: '(Wave 6)'
         jul_20_points_update: '7/20 Points Update'
+        wave_7: '(Wave 7)'
+        oct_20_nantex_nerf: '(Wave 7.1) + Nantex nerf'
         today: 'Today'
       multipliers:
         large_tournament_multiplier:
