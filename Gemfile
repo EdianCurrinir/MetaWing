@@ -9,7 +9,7 @@ gem 'puma'
 
 # views
 
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'uglifier'
 gem 'coffee-rails'
 gem 'haml'
