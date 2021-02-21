@@ -1,40 +1,40 @@
 source 'https://rubygems.org'
-ruby "~> 2.7.2"
+ruby '~> 2.7.2'
 
 # core
 
-gem 'rails', '~> 5.2.3'
 gem 'pg'
 gem 'puma'
+gem 'rails', '~> 5.2.3'
 
 # views
 
+gem 'bootstrap', '4.0.0.alpha6'
+gem 'coffee-rails'
+gem 'font-awesome-rails'
+gem 'haml'
 gem 'sassc-rails'
 gem 'uglifier'
-gem 'coffee-rails'
-gem 'haml'
-gem 'bootstrap', '4.0.0.alpha6'
-gem 'font-awesome-rails'
 
 # core libs
 
-gem 'jquery-rails'
-gem 'jbuilder'
-gem 'exception_notification'
-#gem 'webpacker'
 gem 'devise'
+gem 'exception_notification'
+gem 'jbuilder'
+gem 'jquery-rails'
+# gem 'webpacker'
 
 # additional libs
 
-gem 'execjs'
-gem 'nokogiri'
 gem 'chartkick'
+gem 'chunky_png', require: false
+gem 'execjs'
+gem 'git'
 gem 'groupdate', require: 'groupdate'
-gem 'chunky_png', :require => false
+gem 'httparty'
+gem 'nokogiri'
 gem 'oily_png'
 gem 'redcarpet'
-gem 'git'
-gem 'httparty'
 
 gem 'turbolinks'
 
@@ -52,6 +52,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console'
   gem 'listen'
+  gem 'web-console'
 end
