@@ -24,8 +24,6 @@ Rails.application.routes.draw do
   resources :squadrons, only: [:show]
   resource :about, only: [:show]
 
-  resources :squad_visualizations, only: [:show, :new, :create]
-
   resource :turning_test, only: [:show]
 
   resources :archetype_name_suggestions, only: [:index, :update]
