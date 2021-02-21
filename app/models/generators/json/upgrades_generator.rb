@@ -20,7 +20,6 @@ module Generators
             xws:                upgrade.xws,
             name:               upgrade.name,
             link:               context.upgrade_url(upgrade.id, format: :json),
-            image:              context.upgrade_image_url(upgrade.id, format: :png),
             squadron_count:     upgrade.squadrons,
             tournaments_count:  upgrade.tournaments,
             average_percentile: (upgrade.average_percentile * 10000).to_i / 100.0,

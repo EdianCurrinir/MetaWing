@@ -31,7 +31,6 @@ module Rankers
         name:                         'upgrades.name',
         upgrade_type:                 'upgrade_sides.upgrade_type',
         #upgrade_type_font_icon_class: nil,
-        image_path:                   "max(upgrade_sides.image)",
         weight:                       weight_query_builder.build_weight_query,
         squadrons:                    'count(distinct squadrons.id)',
         tournaments:                  'count(distinct tournaments.id)',
