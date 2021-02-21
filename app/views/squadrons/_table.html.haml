@@ -50,7 +50,7 @@
               - ship_configuration.upgrades.each do |upgrade|
                 %i.xwing-miniatures-font{class: "xwing-miniatures-font-#{upgrade_type_icon(upgrade.upgrade_sides[0].upgrade_type)}"}
                 = link_with_filter_to upgrade_path(upgrade.id), class: 'link-with-hover-image' do
-                  = image_tag upgrade.upgrade_sides[0].image unless upgrade.upgrade_sides[0].image.blank?
+                  = image_tag "upgrades/#{upgrade.xws}.png", alt: "#{upgrade.name}"
                   = upgrade.name
           %br
         %small
