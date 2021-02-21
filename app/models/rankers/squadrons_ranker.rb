@@ -1,6 +1,5 @@
 module Rankers
   class SquadronsRanker
-
     attr_reader :squadrons, :number_of_tournaments, :number_of_squadrons
 
     def initialize(ranking_configuration, ship_id: nil, pilot_id: nil, upgrade_id: nil, ship_combo_id: nil, limit: 2)
@@ -8,11 +7,14 @@ module Rankers
       end_date        = ranking_configuration[:ranking_end]
       tournament_type = ranking_configuration[:tournament_type]
       game_format = ranking_configuration[:format_id]
-      joins           = <<-SQL
+      joins = <<-SQL
         inner join tournaments
           on tournaments.id = squadrons.tournament_id
       SQL
-      squadron_query = Squadron.all.joins(joins).where('tournaments.date >= ? and tournaments.date <= ?', start_date, end_date)
+      squadron_query = Squadron
+                       .all
+                       .joins(joins)
+                       .where('tournaments.date >= ? and tournaments.date <= ?', start_date, end_date)
       if ship_id.present?
         ships_join = <<-SQL
           inner join ship_configurations
@@ -38,15 +40,11 @@ module Rankers
         SQL
         squadron_query = squadron_query.joins(upgrades_join).where('ship_configurations_upgrades.upgrade_id = ?', upgrade_id)
       end
-      if ship_combo_id.present?
-        squadron_query = squadron_query.where('squadrons.ship_combo_id = ?', ship_combo_id)
-      end
-      if tournament_type.present?
-        squadron_query = squadron_query.where('tournaments.tournament_type_id = ?', tournament_type)
-      end
-      if game_format.present?
-        squadron_query = squadron_query.where('tournaments.format_id = ?', game_format)
-      end
+
+      squadron_query = squadron_query.where('squadrons.ship_combo_id = ?', ship_combo_id) if ship_combo_id.present?
+      squadron_query = squadron_query.where('tournaments.tournament_type_id = ?', tournament_type) if tournament_type.present?
+      squadron_query = squadron_query.where('tournaments.format_id = ?', game_format) if game_format.present?
+
       order = <<-SQL
         case when squadrons.elimination_standing is null
           or squadrons.elimination_standing = 0
@@ -56,10 +54,13 @@ module Rankers
         case when sum(tournaments.num_players) is null or sum(tournaments.num_players) = 0 then 1000 else sum(tournaments.num_players) end desc,
         max(tournaments.date) desc
       SQL
-      @squadrons = squadron_query.all.includes({tournament: :tournament_type}, :ship_combo, {ship_configurations: [{pilot: :ship}, {upgrades: :upgrade_sides}]}).limit(limit).order(order).group(Squadron.column_names - ['xws'])
+      @squadrons = squadron_query.all.includes(
+        { tournament: :tournament_type },
+        :ship_combo,
+        { ship_configurations: [{ pilot: :ship }, { upgrades: :upgrade_sides }] }
+      ).limit(limit).order(Arel.sql(order)).group(Squadron.column_names - ['xws'])
 
       @number_of_tournaments, @number_of_squadrons = Rankers::GenericRanker.new(start_date, end_date, tournament_type, game_format).numbers
     end
-
   end
 end
