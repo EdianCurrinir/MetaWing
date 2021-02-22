@@ -55,15 +55,15 @@ module Importers
           'force' => 'Force Power',
           'force-power' => 'Force Power',
           'forcepower' => 'Force Power',
-          'ept'   => 'Talent',
-          'amd'   => 'Astromech',
-          'mod'   => 'Modification',
+          'ept' => 'Talent',
+          'amd' => 'Astromech',
+          'mod' => 'Modification',
           'tactical-relay' => 'Tactical Relay',
           'tacticalrelay' => 'Tactical Relay'
         }.each do |original, substitute|
           if key.casecmp(original) == 0
             key = substitute
-            break;
+            break
           end
         end
         key
@@ -87,22 +87,28 @@ module Importers
         return model if model.present?
         puts "-> looking again for #{relation.name} #{key} - #{Faction.where(xws: faction_xws).try(:id).inspect} <-"
         {
-          'adv'               => 'advanced',
-          'ketsupnyo'         => 'ketsuonyo',
-          'pivotwing'         => 'pivotwinglanding',
-          'sabinewren-swx56'  => 'sabinewren',
-          'Deathrain'         => 'deathrain',
-          'yt2400freighter'   => 'yt2400',
-          'ltlorrir'          => 'lieutenantlorrir',
-          'wookieliberator'   => 'wookieeliberator',
-          'Lowhhrick'         => 'lowhhrick',
-          'tieinterceptor'    => 'tieininterceptor',
+          'adv' => 'advanced',
+          'ketsupnyo' => 'ketsuonyo',
+          'pivotwing' => 'pivotwinglanding',
+          'sabinewren-swx56' => 'sabinewren',
+          'Deathrain' => 'deathrain',
+          'yt2400freighter' => 'yt2400',
+          'ltlorrir' => 'lieutenantlorrir',
+          'wookieliberator' => 'wookieeliberator',
+          'Lowhhrick' => 'lowhhrick',
+          'tieinterceptor' => 'tieininterceptor',
           'niennumb-t70xwing' => 'niennunb',
-          'tiesilencer'       => 'tievnsilencer',
+          'tiesilencer' => 'tievnsilencer',
           'scavengedyt1300lightfreighter' => 'scavengedyt1300',
           'upsilonclasscommandshuttle' => 'upsilonclassshuttle',
           'oddballarc170' => 'oddball-arc170starfighter',
-          'Holo' => "holo"
+          'Holo' => 'holo',
+          'g4rg0rvm' => 'g4rgorvm',
+          'seftinvalink' => 'seftinvanik',
+          'nimichereen' => 'nimichireen',
+          'AaylaSecura' => 'aaylasecura',
+          'mg100starfortresssf17' => 'mg100starfortress',
+          'anakinskywalkerywing' => 'anakinskywalker-btlbywing'
         }.each do |original, substitute|
           key = key.gsub(original, substitute)
         end
