@@ -1,13 +1,12 @@
-%nav.navbar.navbar-toggleable-md.navbar-inverse.fixed-top.bg-inverse
-  %button.navbar-toggler.navbar-toggler-right.hidden-lg-up{'aria-controls' => 'navbar', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '#navbar', 'data-toggle' => 'collapse', :type => 'button'}
+%nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
+  %button.navbar-toggler.navbar-toggler-right.expand-md-up{'aria-controls' => 'navbar', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '.switch', 'data-toggle' => 'collapse', :type => 'button'}
     %span.navbar-toggler-icon
   = link_with_filter_to root_path, class: 'navbar-brand' do
     = t('.title')
-  #navbar.collapse.navbar-collapse
+  #navbar.collapse.navbar-collapse.switch
     %ul.navbar-nav.mr-auto
       - active = :browser
       - active = :about if %w[abouts].include?(params[:controller])
-      - active = :news if %w[news].include?(params[:controller])
       %li.nav-item{class: active == :browser ? 'active' : ''}
         = link_with_filter_to root_path, class: 'nav-link' do
           = t('.browser')
@@ -18,15 +17,10 @@
           = t('.about')
           - if active == :about
             %span.sr-only= "(#{t('.current')})"
-      %li.nav-item{class: active == :news ? 'active' : ''}
-        = link_with_filter_to news_index_path, class: 'nav-link' do
-          = t('.news')
-          - if active == :news
-            %span.sr-only= "(#{t('.current')})"
       %li.nav-item
         =link_to 'https://listfortress.com', class: 'nav-link' do
           = t('.listfortress')
-      .hidden-lg-up
+      .collapse.switch
         - %w[overviews pilots ships upgrades ship_combos].each do |controller|
           - is_current = controller == params[:controller]
           - path = controller == 'overviews' ? root_path : __send__("#{controller}_path")

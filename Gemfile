@@ -9,7 +9,7 @@ gem 'rails', '~> 5.2.3'
 
 # views
 
-gem 'bootstrap', '4.0.0.alpha6'
+gem 'bootstrap'
 gem 'coffee-rails'
 gem 'font-awesome-rails'
 gem 'haml'

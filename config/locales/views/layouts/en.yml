@@ -23,8 +23,8 @@ en:
       links:
         overviews: 'Intro'
         pilots: 'Pilots'
-        ships: 'Ship Types'
-        ship_combos: 'List Archetypes'
+        ships: 'Ships'
+        ship_combos: 'Archetypes'
         upgrades: 'Upgrades'
       current: 'current'
       loading: 'loading...'

@@ -30,7 +30,7 @@
     .container-fluid
       .row
         = render '/layouts/side_navigation'
-        %main.col-lg-10.offset-lg-2.pt-3
+        %main.col-md-11.offset-md-1.pt-2
           - if show_filter?(params[:controller], params[:action])
             = render '/shared/filter_configurator'
           = yield(:export_button)

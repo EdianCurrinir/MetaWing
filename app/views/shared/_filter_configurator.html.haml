@@ -1,11 +1,11 @@
-#filter-accordion.filter-accordion-collapse{role: 'tablist', style: 'margin-bottom: 0.5rem'}
+#filter-accordion.filter-accordion-collapse.pt-2{role: 'tablist', style: 'margin-bottom: 0.5rem'}
   .card
     #filter-header.card-header{role: 'tab'}
       %h5.mb-0
-        %button.filter-toggler.hidden-md-up.collapsed{'data-target' => '#filter-content', 'data-toggle' => 'collapse', :type => 'button'}
+        %button.filter-toggler.d-md-none.collapsed{'data-target' => '#filter-content', 'data-toggle' => 'collapse', :type => 'button'}
           = fa_icon 'filter'
           = t('.filter')
-        #filter-title.float-left.hidden-md-down
+        #filter-title.float-left.d-none.d-lg-block
           = fa_icon 'filter'
           = t('.filter')
         .float-right
