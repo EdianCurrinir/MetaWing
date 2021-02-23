@@ -87,6 +87,8 @@ module Importers
         return model if model.present?
         puts "-> looking again for #{relation.name} #{key} - #{Faction.where(xws: faction_xws).try(:id).inspect} <-"
         {
+          'upsilonclasscommandshuttle' => 'upsilonclassshuttle',
+          'tieinterceptor' => 'tieininterceptor',
           'adv' => 'advanced',
           'ketsupnyo' => 'ketsuonyo',
           'pivotwing' => 'pivotwinglanding',
@@ -96,11 +98,9 @@ module Importers
           'ltlorrir' => 'lieutenantlorrir',
           'wookieliberator' => 'wookieeliberator',
           'Lowhhrick' => 'lowhhrick',
-          'tieinterceptor' => 'tieininterceptor',
           'niennumb-t70xwing' => 'niennunb',
           'tiesilencer' => 'tievnsilencer',
           'scavengedyt1300lightfreighter' => 'scavengedyt1300',
-          'upsilonclasscommandshuttle' => 'upsilonclassshuttle',
           'oddballarc170' => 'oddball-arc170starfighter',
           'Holo' => 'holo',
           'g4rg0rvm' => 'g4rgorvm',
