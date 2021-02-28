@@ -5,7 +5,7 @@ ruby '~> 2.7.2'
 
 gem 'pg'
 gem 'puma'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.1'
 
 # views
 
