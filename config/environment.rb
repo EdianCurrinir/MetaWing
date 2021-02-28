@@ -1,9 +1,5 @@
 # Load the Rails application.
-require_relative 'application'
-
-Rails.application.configure do
-  config.autoload_paths << Rails.root + 'services'
-end
+require_relative "application"
 
 # Initialize the Rails application.
 Rails.application.initialize!
