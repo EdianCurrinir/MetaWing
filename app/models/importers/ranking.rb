@@ -1,6 +1,5 @@
 module Importers
   class Ranking
-
     def initialize
       @all_ship_combos = ShipCombo.all.includes(:ships).to_a
     end
@@ -14,14 +13,14 @@ module Importers
             end
           end
         end
-      rescue => exception
-        puts "Error rebuilding all ranking data with " + exception.message
-        puts exception.backtrace
+      rescue => e
+        puts "Error rebuilding all ranking data with #{e.message}"
+        puts e.backtrace
       end
     end
 
     def build_ranking_data(tournament_id)
-      if (tournament_id.to_f / 50) == (tournament_id.to_i / 50)
+      if (tournament_id % 50).zero?
         print "#{tournament_id}."
       else
         print '.'
@@ -76,10 +75,10 @@ module Importers
         potential_combo.ships.map(&:id).sort == ships.map(&:id).sort
       end
       return found_combo if found_combo.present?
+
       new_combo = ShipCombo.create!(ships: ships)
       @all_ship_combos << new_combo
       new_combo
     end
-
   end
 end
