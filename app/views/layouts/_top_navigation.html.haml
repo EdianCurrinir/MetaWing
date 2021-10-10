@@ -29,7 +29,7 @@
               = t(".links.#{controller}")
               - if is_current
                 %span.sr-only= "(#{t('.current')})"
-    %form.form-inline.mt-2.mt-md-0#search-form.hidden-md-down
+    %form.form-inline.mt-2.mt-md-0#search-form.hidden-md-down.ms-auto.d-flex
       %input.form-control.mr-sm-2{:placeholder => 'Search', :type => 'text'}/
       %button.btn.btn-outline-success.my-2.my-sm-0{:type => 'submit'} Search
 

@@ -2,13 +2,13 @@
   = t('.title', upgrade: @view.upgrade.name, upgrade_type: @view.upgrade_sides.upgrade_type)
 
 - if params[:admin] == 'true'
-  .float-md-right
+  .float-md-end
     %button.btn.btn-primary.btn-sm{data: {target: '#edit-modal', toggle: 'modal'}, type: 'button'}
       = t('.edit')
 %h2= t('.upgrade')
 = render '/upgrades/table', upgrades: @view.upgrades
 
-.float-md-right
+.float-md-end
   = link_with_filter_to upgrade_squadrons_path(@view.upgrade), class: 'btn btn-primary btn-sm' do
     = t('.more_squadrons')
 %h2= t('.notable_squadrons')

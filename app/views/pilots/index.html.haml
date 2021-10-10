@@ -2,7 +2,7 @@
   = t('.title')
 
 - content_for :export_button do
-  .float-md-right
+  .float-md-end
     = link_with_filter_to pilots_path(format: :csv), target: '_blank', class: 'btn btn-primary btn-sm' do
       = fa_icon 'table'
       = t('.export_csv')
