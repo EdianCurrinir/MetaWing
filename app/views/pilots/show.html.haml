@@ -2,13 +2,13 @@
   = t('.title', name: @view.pilot.name)
 
 - if params[:admin] == 'true'
-  .float-md-right
+  .float-md-end
     %button.btn.btn-primary.btn-sm{data: {target: '#edit-modal', toggle: 'modal'}, type: 'button'}
       = t('.edit')
 %h2= t('.pilot')
 = render '/pilots/table', pilots: @view.pilots
 
-.float-md-right
+.float-md-end
   = link_with_filter_to pilot_squadrons_path(@view.pilot), class: 'btn btn-primary btn-sm' do
     = t('.more_squadrons')
 %h2#squadrons= t('.notable_squadrons')

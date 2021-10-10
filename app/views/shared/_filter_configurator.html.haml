@@ -5,10 +5,10 @@
         %button.filter-toggler.d-md-none.collapsed{'data-target' => '#filter-content', 'data-toggle' => 'collapse', :type => 'button'}
           = fa_icon 'filter'
           = t('.filter')
-        #filter-title.float-left.d-none.d-lg-block
+        #filter-title.float-start.d-none.d-lg-block
           = fa_icon 'filter'
           = t('.filter')
-        .float-right
+        .float-end
           = link_to request.env['PATH_INFO'], class: 'btn btn-primary btn-sm' do
             = t('.reset_filter')
     #filter-content.collapse.dont-collapse-sm{role: 'tabpanel'}

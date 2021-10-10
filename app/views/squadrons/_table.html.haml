@@ -21,7 +21,7 @@
       %td
         = squadron.elimination_standing
       %td.squadron-cell
-        .float-md-right
+        .float-md-end
           = link_to 'javascript:void(0);', class: 'xws-link btn btn-sm btn-secondary', data: {xws: squadron.xws, link: squadron_url(squadron, format: :json)} do
             = t('.export')
         - squadron.ship_configurations.each do |ship_configuration|
