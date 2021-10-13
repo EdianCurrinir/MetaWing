@@ -1,37 +1,38 @@
 %nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
-  %button.navbar-toggler.navbar-toggler-right.expand-md-up{'aria-controls' => 'navbar', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '.switch', 'data-toggle' => 'collapse', :type => 'button'}
-    %span.navbar-toggler-icon
-  = link_with_filter_to root_path, class: 'navbar-brand' do
-    = t('.title')
-  #navbar.collapse.navbar-collapse.switch
-    %ul.navbar-nav.mr-auto
-      - active = :browser
-      - active = :about if %w[abouts].include?(params[:controller])
-      %li.nav-item{class: active == :browser ? 'active' : ''}
-        = link_with_filter_to root_path, class: 'nav-link' do
-          = t('.browser')
-          - if active == :browser
-            %span.sr-only= "(#{t('.current')})"
-      %li.nav-item{class: active == :about ? 'active' : ''}
-        = link_with_filter_to about_path, class: 'nav-link' do
-          = t('.about')
-          - if active == :about
-            %span.sr-only= "(#{t('.current')})"
-      %li.nav-item
-        =link_to 'https://listfortress.com', class: 'nav-link' do
-          = t('.listfortress')
-      .collapse.switch
-        - %w[overviews pilots ships upgrades ship_combos].each do |controller|
-          - is_current = controller == params[:controller]
-          - path = controller == 'overviews' ? root_path : __send__("#{controller}_path")
-          %li.nav-item
-            = link_with_filter_to path, class: "nav-link#{is_current ? ' active' : ''}" do
-              = t(".links.#{controller}")
-              - if is_current
-                %span.sr-only= "(#{t('.current')})"
-    %form.form-inline.mt-2.mt-md-0#search-form.hidden-md-down.ms-auto.d-flex
-      %input.form-control.mr-sm-2{:placeholder => 'Search', :type => 'text'}/
-      %button.btn.btn-outline-success.my-2.my-sm-0{:type => 'submit'} Search
+  .container-fluid
+    %button.navbar-toggler.navbar-toggler-right.expand-md-up{'aria-controls' => 'navbar', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '.switch', 'data-toggle' => 'collapse', :type => 'button'}
+      %span.navbar-toggler-icon
+    = link_with_filter_to root_path, class: 'navbar-brand' do
+      = t('.title')
+    #navbar.collapse.navbar-collapse.switch
+      %ul.navbar-nav.me-auto
+        - active = :browser
+        - active = :about if %w[abouts].include?(params[:controller])
+        %li.nav-item{class: active == :browser ? 'active' : ''}
+          = link_with_filter_to root_path, class: 'nav-link' do
+            = t('.browser')
+            - if active == :browser
+              %span.sr-only= "(#{t('.current')})"
+        %li.nav-item{class: active == :about ? 'active' : ''}
+          = link_with_filter_to about_path, class: 'nav-link' do
+            = t('.about')
+            - if active == :about
+              %span.sr-only= "(#{t('.current')})"
+        %li.nav-item
+          =link_to 'https://listfortress.com', class: 'nav-link' do
+            = t('.listfortress')
+        .collapse.switch
+          - %w[overviews pilots ships upgrades ship_combos].each do |controller|
+            - is_current = controller == params[:controller]
+            - path = controller == 'overviews' ? root_path : __send__("#{controller}_path")
+            %li.nav-item
+              = link_with_filter_to path, class: "nav-link#{is_current ? ' active' : ''}" do
+                = t(".links.#{controller}")
+                - if is_current
+                  %span.sr-only= "(#{t('.current')})"
+      %form.form-inline.mt-2.mt-md-0#search-form.hidden-md-down.ms-auto.d-flex
+        %input.form-control.me-sm-2{:placeholder => 'Search', :type => 'text'}/
+        %button.btn.btn-outline-success.my-2.my-sm-0{:type => 'submit'} Search
 
 - content_for :javascript do
   :coffeescript
