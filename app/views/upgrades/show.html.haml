@@ -3,7 +3,7 @@
 
 - if params[:admin] == 'true'
   .float-md-end
-    %button.btn.btn-primary.btn-sm{data: {target: '#edit-modal', toggle: 'modal'}, type: 'button'}
+    %button.btn.btn-primary.btn-sm{data: {bs: {target: '#edit-modal', toggle: 'modal'}}, type: 'button'}
       = t('.edit')
 %h2= t('.upgrade')
 = render '/upgrades/table', upgrades: @view.upgrades
