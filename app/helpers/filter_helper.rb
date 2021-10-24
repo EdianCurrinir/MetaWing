@@ -19,6 +19,9 @@ module FilterHelper
       [I18n.t('shared.filter_configurator.dates.jul_20_points_update'), Date.new(2020, 7, 28)],
       [I18n.t('shared.filter_configurator.dates.wave_7'), Date.new(2020, 9, 25)],
       [I18n.t('shared.filter_configurator.dates.oct_20_nantex_nerf'), Date.new(2020, 10, 30)],
+      [I18n.t('shared.filter_configurator.dates.wave_8'), Date.new(2020, 11, 27)],
+      [I18n.t('shared.filter_configurator.dates.wave_9'), Date.new(2021, 3, 26)],
+      [I18n.t('shared.filter_configurator.dates.wave_10'), Date.new(2021, 9, 24)],
       [I18n.t('shared.filter_configurator.dates.today'), Date.today]
     ]
   end
