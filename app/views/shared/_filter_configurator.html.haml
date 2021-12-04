@@ -2,7 +2,7 @@
   .card
     #filter-header.card-header{role: 'tab'}
       %h5.mb-0
-        %button.filter-toggler.d-md-none.collapsed{'data-target' => '#filter-content', 'data-toggle' => 'collapse', :type => 'button'}
+        %button.filter-toggler.d-md-none.collapsed{'data-bs-target' => '#filter-content', 'data-bs-toggle' => 'collapse', :type => 'button'}
           = fa_icon 'filter'
           = t('.filter')
         #filter-title.float-start.d-none.d-lg-block
